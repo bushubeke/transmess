@@ -1,0 +1,10 @@
+redux
+redux-thunk
+react-redux
+bootstrap 
+react-bootstrab 
+font-awesome 
+react-fontawesome
+react-device-detect
+axios
+jquery
