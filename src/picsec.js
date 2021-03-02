@@ -105,9 +105,9 @@ class PicSection extends React.Component {
         console.log(data)
           axios({
           method: 'POST',
-          baseURL:this.state.baseURL,
-          url: this.state.picUploadURL,
-         
+          //aseURL:this.state.baseURL,
+          //url: this.state.picUploadURL,
+          //url:'192.168.10.2:5000/upload',
           
           headers: {
             "Content-Type": "multipart/form-data",
@@ -129,7 +129,7 @@ class PicSection extends React.Component {
         // the below syntax is taken from axios npm
         axios({
           method: 'get',
-          baseURL:this.state.baseURL,
+          //baseURL:this.state.baseURL,
           url: '/transtext/username/',
           //responseType: 'stream'
         })

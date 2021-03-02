@@ -254,23 +254,24 @@ shouldComponentUpdate(){
 async firstCompRequest(){
  await axios({
     method: 'post',
-    url: 'http://192.168.10.10:5000/transtext',
+    url: '/transtext',
     //responseType: 'stream'
     headers: {
       'Content-Type': 'text/plain'
     },
-    data:{email:'beimdegefu@gmail.com',password:'transport'},
+   
   })
     .then(function (response) {
       //console.log(response.status)
        var data=response.data;  
-      if (response){
-           console.log(data)
-        }
+      console.log(data[0].uid)
+      console.log(data[0].username)
+      console.log(data[0].email)
+      console.log(data[0].profile_pic_url)
     })
     .catch(function(err){
       //window.location.replace("http://192.168.10.3:5000/login");
-      console.log(err)
+      //console.log(err)
     });
 
 
