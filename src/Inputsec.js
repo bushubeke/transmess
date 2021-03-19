@@ -76,7 +76,7 @@ class InputSec extends React.Component {
                       
                       <InputGroup>
                         <FormControl
-                          
+                          className='trans-text-input'
                           placeholder='type text here'
                           
                         />

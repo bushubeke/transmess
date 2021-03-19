@@ -89,7 +89,8 @@ class NavSection extends React.Component {
                 //console.log(con_width)
                 this.setState({conButStyle:{width:con_width},inpGroupStyle:{width:inp_width}});
                 let totalHeight=window.innerHeight;
-                var sr_height2=totalHeight-210+'px';
+                let fr_height=document.querySelector('#fr').offsetHeight;
+                var sr_height2=totalHeight-fr_height-20+'px';
                 
                 
                 this.setState({secondr_style:{height:sr_height2,width:sr_width}})
@@ -253,7 +254,7 @@ var textmessage2=[{ type:'tr',picid:'compOne', imageid:'imageOne'},
               
 
               
-                  <Row  id={this.props.id} style={this.state.secondr_style} >
+                  <Row  id={this.props.id} style={this.state.secondr_style}  >
                     <Col id="rc21" xs={4}>
                         <Container fluid>
                             <InputGroup >
@@ -278,7 +279,8 @@ var textmessage2=[{ type:'tr',picid:'compOne', imageid:'imageOne'},
                                 </Button>
                             </ButtonGroup>
                       </Container>
-                      <Container  fluid id='control-box' className="overflow-auto" >
+                     
+                      <Container  fluid id='control-box' className="overflow-auto style-10 " >
                       
                       {(this.state.MenueState === 'Contacts' ) ? data.map(value=> 
                       <ContactView selDiVSt={this.state.selectedDivId === value ? this.state.selectDivColor :this.state.normalDivColor} 
@@ -293,6 +295,7 @@ var textmessage2=[{ type:'tr',picid:'compOne', imageid:'imageOne'},
                           
                           <Container></Container>}
                       </Container>
+                      
                     </Col>
                     <Col  id="rc22" >
                          <MessageSec data={this.state.selectedDivId === 'c5' ? textmessage1:this.state.selectedDivId==='m4'? textmessage2:[]}/>     

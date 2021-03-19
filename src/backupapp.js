@@ -1232,7 +1232,7 @@ var xlScreen=[
 
 
 
-
+style={this.State.minHec}
 
 //##############################
     //
@@ -1422,7 +1422,48 @@ $('#'+imageid).css('margin-left',propic_left);
 
 
 
+  $(window).on('load',function(){
 
+      try {
+        fa-delete
+      //this is setting max height for messeage box container
+      let msgbox_height=document.querySelector('#msgbox').offsetHeight;
+      let msgbox_con_max_height=msgbox_height-15+'px';
+      $('#msgbox-con').css('max-height',msgbox_con_max_height);
+      
+    } catch (error) {
+        
+    }
+
+    })
+      //on windows resize events
+      //############################
+          //on resize jqeury codes
+      //###########################
+      $(window).on('resize',function(){
+        try {
+          
+        
+     //############################################################
+      //this section is to control msg view area size
+        let tx_height=$('#rc22').offsetHeight;
+        let ms_height=parseInt(0.89*tx_height)+'px'
+      $('#msgbox').css('height',ms_height);
+      //console.log(tx_height);
+        
+        //this is setting max height for messeage box container
+      let msgbox_height=document.querySelector('#msgbox').offsetHeight;
+      let msgbox_con_max_height=msgbox_height-15+'px';
+      $('#msgbox-con').css('max-height',msgbox_con_max_height);
+    } catch (error) {
+          
+    }
+   
+      })
+
+      //################################
+
+      //#####################################
 
 
 
@@ -1435,3 +1476,423 @@ $('#'+imageid).css('margin-left',propic_left);
              
               */
 
+  //#################################################################################################
+ // ################sass mixin using sample
+ // #################################################################################################
+  /*
+  <style type='text/scss'>
+  
+  @mixin border-radius($radius)
+  {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius:$radius;
+  }
+    #awesome {
+      width: 150px;
+      height: 150px;
+      background-color: green;
+      @include border-radius(15px);
+    }
+    
+  </style>
+  
+  <div id="awesome"></div>
+  
+  <style type='text/scss'>
+  
+  @mixin border-stroke($val){
+    @if $val== light {
+      border:1px solid black;
+    }
+    @else if $val == medium {
+      border: 3px solid black;
+    }
+    @else if $val == heavy {
+      border: 6px solid black;
+    }
+    @else {
+      border: none;
+    }
+  }
+  
+    #box {
+      width: 150px;
+      height: 150px;
+      background-color: red;
+      @include border-stroke(medium);
+    }
+  </style>
+  
+  <div id="box"></div>
+  
+  
+  
+  
+  ###############################################33
+  #both do the same thing with loop, key diffrence being the "through" and "to" key workds
+  ################################################33
+  @for $i from 1 through 5 {
+    .text-#{$i} {
+      font-size:15*$i;
+    }
+  }
+  
+  
+  
+  
+  @for $i from 1 to 6 {
+    .text-#{$i} {
+      font-size:15*$i;
+    }
+  }
+  
+  
+  <p class="text-1">Hello</p>
+  <p class="text-2">Hello</p>
+  <p class="text-3">Hello</p>
+  <p class="text-4">Hello</p>
+  <p class="text-5">Hello</p>
+  ###############################################################
+  
+  ##############################################################
+  <style type='text/scss'>
+  
+  $colors:(color1:blue,color2:black,color3:red);
+  
+  @each $key, $color in $colors {
+    .#{$color}-bg {background-color: $color;}
+  };
+  
+    div {
+      height: 200px;
+      width: 200px;
+    }
+  </style>
+  
+  <div class="blue-bg"></div>
+  
+  <div class="red-bg"></div>
+  <div class="black-bg"></div>
+  ##########################################################3
+  
+  ###############################################################
+  
+  <style type='text/scss'>
+  
+  $x: 1;
+  @while $x < 6 {
+    .text-#{$x} { font-size: 15* $x;}
+    $x: $x + 1;
+  }
+  
+  </style>
+  
+  <p class="text-1">Hello</p>
+  <p class="text-2">Hello</p>
+  <p class="text-3">Hello</p>
+  <p class="text-4">Hello</p>
+  <p class="text-5">Hello</p>
+  ################################################################
+  
+  ##################################################################
+  
+  Write an @import statement to import a partial named _variables.scss into the main.scss file.
+  @import 'variables'
+  ################################################################
+  
+  ##################################################################
+    .info{
+      width: 200px;
+      border: 1px solid black;
+      margin: 0 auto;
+    }
+  .info{
+    
+  }
+  .info-important{
+    @extend .info;
+    background-color:magenta;
+  }
+  
+  */
+  
+ // #################################################################################################
+  
+ // #################################################################################################
+/*
+
+
+//#####################################################################################
+//#####################################################################################
+      //redux Actions defined here,
+//#####################################################################################
+
+
+
+//
+// Action defined here  for routing state store which will be updated as the app grows
+const LOGIN='LOGIN';
+const setLogIn =()=>{
+  return {
+    type:LOGIN
+  }
+};
+const LOGOUT='LOGOUT';
+const setLogOut =()=>{
+  return {
+    type:LOGOUT
+  }
+};
+
+
+
+
+
+
+
+
+
+// Action defined ended here
+
+//#####################################################################################
+    //redux default state defined here
+//#####################################################################################
+
+
+//  routing state to be updated which will grow as the ap grows
+const routedefaultState={
+  
+  login_status:false,
+}
+
+
+
+
+
+//states defined ended here
+//#####################################################################################
+    //routing reducer function defined here below along with functions
+//#####################################################################################
+// routing store Action  or reducer functions here functionalites which will grow as the app grows below
+const routingControl=(state=routedefaultState,action)=>{
+  //var edited_State=Object.assign({},state);
+  switch(action.type){
+    case LOGIN:
+      
+      //let totalHeight=window.innerHeight;
+      //let first_row_height=document.querySelector('#fr').offsetHeight;
+      //let second_row_height=totalHeight-first_row_height+'px';
+      //state.sr_height=second_row_height;
+      //console.log(state)
+      state.login_status=true;
+      console.log(state)
+      return state;
+    case LOGOUT:
+      state.login_status=false;
+      return state;
+    default:
+        return state;
+  }
+}
+
+//action functions with switich cases ended here
+
+
+//#####################################################################################
+    //store created here with thunk middleware
+//#####################################################################################
+
+//store is created here
+//note here flowControl is to be replaced by the name of the funciton created as actions
+
+const routesource=createStore(routingControl,applyMiddleware(thunk))
+//#####################################################################################
+    //this is provion for any functions we want to subscribe to the redux store, app may not have one
+//#####################################################################################
+// subscribed functions written here
+
+
+
+//subscribed functions ended here
+
+//#####################################################################################
+    // this are functions that are used to map actions and and state props to react component
+//#####################################################################################
+// the following states are to map routesource state 
+const rmapStateToProps = (state) => {
+  return {routestate: state}
+};
+
+const rmapDispatchToProps = (dispatch) => {
+  return {
+    setLogIn: () => {dispatch(setLogIn())},
+    setLogOut: () => {dispatch(setLogOut())},
+ 
+    
+
+
+  }
+};
+
+//maping states and props ended here
+
+//#####################################################################################
+      //React component defined here
+//#####################################################################################
+
+
+
+//#####################################################################################
+    // react protected route for rendering protected elements
+//####################################################################################
+
+//#####################################################################################
+      //connecting my react app to dispatch and state props
+//#####################################################################################
+//creating wraper here
+
+const TeleLogging=connect(rmapStateToProps, rmapDispatchToProps)(LoginPage);
+
+const TeleProtected=connect(rmapStateToProps, rmapDispatchToProps)(TeleRouter);
+//const TeleSignin=connect(mapStateToProps, mapDispatchToProps)(SignInPage);
+
+//#####################################################################################
+    // react component used for routing passed in component based on resource
+//#####################################################################################
+class Protected extends React.Component{
+  
+  render ()
+  {return (
+    this.props.dstate.login_status ? 
+    (<Route exact path={this.props.path} component={this.props.component} />) :
+    (<Redirect to={this.props.redirect}/>)
+  )
+}
+
+}
+//#####################################################################################
+    // react protected route for rendering not protected elements elements
+//####################################################################################
+class SignInPage extends React.Component{
+ 
+ 
+  render ()
+  {return (
+    !this.props.dstate.login_status ? 
+    (<Route exact path={this.props.path} component={this.props.component} />) :
+    (<Redirect to={this.props.redirect}/>)
+  )
+}
+
+}
+class Protected extends React.Component{
+  
+  render ()
+  {return (
+    this.props.dstate.login_status ? 
+    (<Route exact path={this.props.path} component={this.props.component} />) :
+    (<Redirect to={this.props.redirect}/>)
+  )
+}
+
+}
+//#####################################################################################
+    // react protected route for rendering not protected elements elements
+//####################################################################################
+class SignInPage extends React.Component{
+ 
+ 
+  render ()
+  {return (
+    !this.props.dstate.login_status ? 
+    (<Route exact path={this.props.path} component={this.props.component} />) :
+    (<Redirect to={this.props.redirect}/>)
+  )
+}
+
+}
+
+*/
+
+ //################################################################################################
+
+ //#########################################################################################################
+
+ if (this.state.current_location === '/login' || this.state.current_location ==='/' ){
+  {
+    return (
+      <LoginPage />
+    )
+  }
+else if(this.state.current_location ==='/transtext'){
+  return (
+    <TextPort />
+  )
+}
+else if(this.state.current_location ==='/MarkDown'){
+  return (
+    <MarkDown />
+  )
+}
+else if(this.state.current_location ==='/clock'){
+  return (
+    <Clock />
+  )
+}
+else{
+  return (
+    <Page404 />
+  )
+}
+
+} 
+<Card>
+<Card.Img src='https://picsum.photos/200/10'></Card.Img>
+<Card.Body>
+<Card.Title style={{textAlign:'center'}}> <h1>FCC Pomodoro Clock</h1></Card.Title>
+</Card.Body>
+
+</Card>
+
+
+<div class="card" >
+
+          <div class="card-body">
+         
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SampleApp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarColor01">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">FCC</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Chatting</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+              </ul>
+              <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
+          
+        </div>
+      </div>
+
+
+      this.state.profile_pic_url ? this.state.profile_pic_url.slice(-1)[0]: "/static/media/marvin-meyer-SYTO3xs06fU-unsplash.jpg"
+      /static/media/travel-3351825_960_720.1ab0a1c1.jpg
+      /static/media/marvin-meyer-SYTO3xs06fU-unsplash.jpg

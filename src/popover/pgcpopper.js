@@ -25,16 +25,16 @@ class PgcPoper extends React.Component{
       }
 
 setconMax(){
-    let pcgtotalHeight=window.innerHeight-100+'px';
+    //let pcgtotalHeight=window.innerHeight-100+'px';
     //console.log(pcgtotalHeight)
-    this.setState({con_max:{maxHeight:pcgtotalHeight}})
+   // this.setState({con_max:{maxHeight:pcgtotalHeight}})
 }  
 componentDidMount() {
-    this.setconMax();
-    document.addEventListener('resize',this.setconMax)
+    //this.setconMax();
+    //document.addEventListener('resize',this.setconMax)
   }
   componentWillUnmount() {
-    document.removeEventListener('resize',this.setconMax)
+    //document.removeEventListener('resize',this.setconMax)
   }
    
 render(){
@@ -43,10 +43,10 @@ render(){
       
       
     
-      <Modal size="md"   centered  show={this.props.pgcshow}  onHide={this.props.setPgcShow}     >
+      <Modal size="md"   scrollable centered   show={this.props.pgcshow}  onHide={this.props.setPgcShow}     >
         
-        <Modal.Body id='pgcpop'>
-          <Container className="overflow-auto"  style={this.state.con_max}fluid>
+        <Modal.Body id='pgcpop' className='style-10'>
+          <Container fluid>
           <Row>
           <ContactViewPg />
           </Row>
@@ -55,6 +55,13 @@ render(){
           </Row>
           <Row>
           
+          <UserContactView />
+          <UserContactView />
+          <UserContactView /> 
+          <UserContactView />
+          <UserContactView />
+          <UserContactView />
+          <UserContactView />
           <UserContactView />
           <UserContactView />
           <UserContactView /> 

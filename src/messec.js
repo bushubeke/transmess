@@ -13,81 +13,91 @@ import PicRight from './messag/picright'
 import PicLeft from './messag/picleft'
 import LinkLeft from './messag/linkleft'
 import LinkRight from './messag/linkright'
+
 class MessageSec extends React.Component {
     constructor(props){ 
       super(props);
       this.state = {
         show:false,
-        
+        msg_height:{},
         
       }
       //binding done here for function
-      //this.handleResize=this.handleResize.bind(this)
-  
+      this.handleMsgBoxResize=this.handleMsgBoxResize.bind(this)
+      
           
         
     }
+
+
+
+
+
+      //#################################################################################
+      handleMsgBoxResize(){
+       
+        let tx_height=document.querySelector('#rc22').offsetHeight;
+        let ms_height=parseInt(0.9*tx_height)+'px'
+        //console.log(ms_height)
+        //console.log(tx_height)
+        this.setState({msg_height:{height:ms_height,maxHeight:ms_height}})
+     
+    }
+
+     //#################################################################################
+      
+      componentDidMount() 
+      {
+        //this.handleMsgBoxResize()
+        //document.addEventListener('resize',this.handleMsgBoxResize())
+        //document.addEventListener('DOMContentLoaded',this.handleMsgBoxResize())
+      }
+       //#################################################################################
+      componentWillUnmount() {
+        document.removeEventListener('resize',this.handleMsgBoxResize())
+      }
+       //#################################################################################
+      
     render() {
 
       //##############################
               //on document load jquery codes
       //##############################
-     
-     $(window).on('load',function(){
+      $(window).on('load',function(){
 
-      try {
-        
-     
-      //############################################################
-  //this section is to control msg view area size
-      let tx_height=document.querySelector('#rc22').offsetHeight;
-      let ms_height=parseInt(0.89*tx_height)+'px'
-      $('#msgbox').css('height',ms_height);
-      
-      
-      
-      //this is setting max height for messeage box container
-      let msgbox_height=document.querySelector('#msgbox').offsetHeight;
-      let msgbox_con_max_height=msgbox_height-15+'px';
-      $('#msgbox-con').css('max-height',msgbox_con_max_height);
-      
-    } catch (error) {
-        
-    }
-
-    })
-      //on windows resize events
-      //############################
-          //on resize jqeury codes
-      //###########################
-      $(window).on('resize',function(){
         try {
+          let tx_height=document.querySelector('#rc22').offsetHeight;
+        let ms_height=parseInt(0.9*tx_height)+'px'
+        $("#msgbox").css('height',ms_height)
           
-        
-     //############################################################
-      //this section is to control msg view area size
-        let tx_height=$('#rc22').offsetHeight;
-        let ms_height=parseInt(0.89*tx_height)+'px'
-      $('#msgbox').css('height',ms_height);
-      //console.log(tx_height);
-        
-        //this is setting max height for messeage box container
-      let msgbox_height=document.querySelector('#msgbox').offsetHeight;
-      let msgbox_con_max_height=msgbox_height-15+'px';
-      $('#msgbox-con').css('max-height',msgbox_con_max_height);
-    } catch (error) {
-          
-    }
-   
+        } catch (error) {
+          console.log(error) 
+        }
+
+
+
       })
+   //##############################
+              //on document resize jquery codes
+      //##############################
+      $(window).on('resize',function(){
 
-      //################################
+        try {
+          let tx_height=document.querySelector('#rc22').offsetHeight;
+        let ms_height=parseInt(0.9*tx_height)+'px'
+        $("#msgbox").css('height',ms_height)
+          
+        } catch (error) {
+          console.log(error) 
+        }
 
-      //#####################################
+
+        
+      })
       return (
         <React.Fragment>
-          <Row id='msgbox' className="overflow-auto">
-              <Container id='msgbox-con'>
+          <Row id='msgbox' className="overflow-auto style-10" >
+              <Container id='msgbox-con' >
                   {this.props.data.length ? this.props.data.map(function(data){
                     if(data.type==='tr'){
                     return(
@@ -132,7 +142,13 @@ class MessageSec extends React.Component {
 
                   }
                </Container>
+               
+               
+              
+               
           </Row> 
+         
+         
           
           
            

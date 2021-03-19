@@ -1,11 +1,11 @@
 import React from 'react';
-import {Col,Image,Button,ButtonGroup,Row} from  'react-bootstrap'
+import {Col,Button,Card,ButtonGroup} from  'react-bootstrap'
 //import { } from  'react-bootstrap'
 //import $ from 'jquery'
 import './fmessec.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PicPoper from './popover/picpopover';
-//import rtravel from './rtravel.jpg'
+import tdpicture from './marvin-meyer-SYTO3xs06fU-unsplash.jpg'
 import './mainsrc.css'
 import axios from 'axios';
 class PicSection extends React.Component {
@@ -17,8 +17,8 @@ class PicSection extends React.Component {
         picshow:false,
         pic_mar:{marginLeft:''},
         buttg_mar:{width:''},
-        upFile:''
-
+        upFile:'',
+        profile_pic_url:[]
         
         
       }
@@ -45,13 +45,17 @@ class PicSection extends React.Component {
     }
      //#################################################################################
     componentDidMount() 
-    {
-      this.setPicMargins()
-      document.addEventListener('resize',this.setPicMargins())
+    { 
+      //this.props.setFirstUpdate()
+      //console.log('before first data fetch')
+      //this.getDatafromURL()
+      //console.log('after first data fetch')
+      //this.setPicMargins()
+      //document.addEventListener('resize',this.setPicMargins())
     }
      //#################################################################################
     componentWillUnmount() {
-      document.removeEventListener('resize',this.setPicMargins())
+      //document.removeEventListener('resize',this.setPicMargins())
     }
      //#################################################################################
      async uploadPic(){
@@ -67,11 +71,11 @@ class PicSection extends React.Component {
 
                 //#####################################
                 // not only the pic margins are calculated and set here but also add pic and delete button
-                let pic_row_width=document.querySelector('#picrow').offsetWidth;
+           //     let pic_row_width=document.querySelector('#picrow').offsetWidth;
                 //let button_wid=document.querySelector('#butgroup_id').offsetWidth;
-                let pic_marg=((pic_row_width-145)*0.5 )+ 'px';
+            //    let pic_marg=((pic_row_width-145)*0.5 )+ 'px';
                 //let buttg_marg=((pic_row_width-button_wid)*0.5 )+ 'px';
-                this.setState({pic_mar:{marginLeft:pic_marg},buttg_mar:{width:pic_row_width} });
+             //   this.setState({pic_mar:{marginLeft:pic_marg},buttg_mar:{width:pic_row_width} });
 
       }
 
@@ -100,19 +104,28 @@ class PicSection extends React.Component {
         //https://www.npmjs.com/package/axios#axios-api
       
         var formData=document.querySelector('#profileUpload');
-
+         //console.log(this.props.appstate.token)
+        
         var data= new FormData(formData); 
-        console.log(data)
+
+        data.append('user_id',this.props.appstate.userid)
+        //console.log(data)
           axios({
-          method: 'POST',
+          method: 'PUT',
           //aseURL:this.state.baseURL,
-          //url: this.state.picUploadURL,
-          //url:'192.168.10.2:5000/upload',
+          //url: this.state.picUploadURL,style={this.state.buttg_mar}
+          url:'http://192.168.10.7:5000/transtext/profile',
           
           headers: {
             "Content-Type": "multipart/form-data",
+            //'Content-Type': 'application/json',
+            "X-APP-KEY" :this.props.appstate.token
           },
           data:data,
+        }).then((response)=>{
+          console.log(response.data)
+        }).catch((error)=>{
+          console.log(error)
         });
 
 
@@ -121,22 +134,37 @@ class PicSection extends React.Component {
 
 
      //#################################################################################
-      getDatafromURL(){
+     async getDatafromURL(){
 
         // for ther real app the api request url should be given by current user id which will be passed down as props
             //var 
         //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
         // the below syntax is taken from axios npm
-        axios({
+        //console.log(this.props.appstate.token)
+        //var data;
+      await axios({
           method: 'get',
-          //baseURL:this.state.baseURL,
-          url: '/transtext/username/',
+          url: 'http://192.168.10.7:5000/transtext/profile',
           //responseType: 'stream'
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "X-APP-KEY" :this.props.appstate.token,
+          },
+        
         })
           .then(function (response) {
-            //response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+            //console.log(response.status)
+            //data=response.data[0]
+            //console.log(data)
+          
+          })
+          .catch(function(err){
+            //window.location.replace("http://192.168.10.3:5000/login");
+            console.log(err)
           });
-      }
+          //console.log()
+          
+            }
 
 
      //#################################################################################
@@ -149,39 +177,32 @@ class PicSection extends React.Component {
       return (
         <React.Fragment>
             <Col id="rc11" xs={4} >
-                 <Row id='picrow'>
-                  
-                <Image onClick={this.setPicShow} style={this.state.pic_mar} ref={this.PicRef} id='prc11'  src={this.props.travel} width="140"  height="140"  roundedCircle />
-                
-                </Row>
-                <Row id='picbutrow'>
-                                             
-                    <ButtonGroup  style={this.state.buttg_mar} id='butgroup_id'>
-                        <Button onClick={this.uploadPic} size='sm' variant="outline-dark"  >
+            <Card id="pic-sec-card-group">
+                <Card.Img  onClick={this.setPicShow} src={this.state.profile_pic_url.length !==0 ? this.state.profile_pic_url.slice(-1)[0]: tdpicture}  ref={this.PicRef} variant="top" height="95px" />
+                 
+                    <ButtonGroup id='pic-sec-btn-group'  className='btn btn-block'>                        
+                       <Button  onClick={this.uploadPic} variant="light"  >
 
                           <i className='fa fa-picture-o' name='addpic'/>
                           <form id="profileUpload" style={{display: 'none'}}>
+                       
                           <input  type="file" id='pupload' name='photo' onChange={this.fileUploadOperation} />
                           <input type='submit' id='psubmit' onClick={this.fileSubmit} />
 
                           </form>
                           </Button>
-                          <Button  size='sm' variant="outline-dark"  >
+                          <Button    variant="light"  >
                           <i className="fa fa-pencil" name="updateprof"  />
                           </Button>
                       
-                        <Button   size='sm' variant="outline-dark"  >
-                          <i className="fa fa-trash-o" name="delpic"  />
-                         
-                          </Button>
-                        
-                    </ButtonGroup>
+                      </ButtonGroup>
+  
                     
-                    
+                  
+                </Card>
 
-                </Row>
-                <PicPoper src='http://192.168.10.3:5000/_uploads/photos/photo5809804151541052397.jpg' picshow={this.state.picshow} setPicShow={this.setPicShow} />
-            </Col>
+                <PicPoper picshow={this.state.picshow} setPicShow={this.setPicShow} />
+            </Col >
            
            
             
