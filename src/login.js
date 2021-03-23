@@ -54,7 +54,7 @@ class LoginPage extends React.Component {
               
                 
                 
-                 await  axios('http://192.168.10.7:5000/jwtlogin', {
+                 await  axios('http://192.168.10.7:5000/user/jwtlogin', {
                       method: 'POST', // or 'PUT'
                       headers: {
                         'Content-Type': 'application/json',
@@ -64,6 +64,7 @@ class LoginPage extends React.Component {
                     })
                     .then((response) => {
                       console.log(response.data)
+                                         
                       var timenow= new Date(Date.now())
                       var exptime=timenow.setHours(timenow.getHours()+5);
                       document.cookie="username="+response.data.user+"; expires="+exptime+"; path=/"
@@ -72,7 +73,7 @@ class LoginPage extends React.Component {
                       document.cookie="loggedin=true; expires="+exptime+"; path=/"
                       document.cookie="userid="+response.data.userid+"; expires="+exptime+"; path=/"
                       //this.props.login()
-                      document.location.assign('/transtext')
+                      //document.location.assign('/transtext')
                       
                       
                       
